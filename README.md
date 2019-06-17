@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 grass-river-extraction-tools
 ==============================
 
@@ -55,3 +56,7 @@ Project Organization
 --------
 
 <p><small>Project based on the <a target="_blank" href="https://drivendata.github.io/cookiecutter-data-science/">cookiecutter data science project template</a>. #cookiecutterdatascience</small></p>
+=======
+# grass-river-extraction-tools
+An automated method to extract river profiles using GRASS GIS
+>>>>>>> origin/master
