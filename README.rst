@@ -1,14 +1,79 @@
-<<<<<<< HEAD
-grass-river-extraction-tools
-==============================
+Grass River Extraction Tools
+============================
 
-An automated method to extract river profiles using GRASS GIS
+A command-line tool to automatically extract river profiles 
+from digital elevation models using GDAL and GRASS GIS.
+
+
+Prerequisites
+-------------
+
+-  Python 2 or 3
+-  Sphinx 2.1.1 - This can be installed with pip or conda depending on how you
+   manage your Python packages
+
+.. code:: bash
+
+   $ sudo apt install python3-sphinx or sudo apt install python-sphinx
+   $ sudo pip install sphinx
+
+-  GRASS GIS 7.6
+
+.. code:: bash
+   $ sudo add-apt-repository ppa:ubuntugis/ubuntugis-unstable
+   $ sudo apt-get update
+   $ sudo apt-get install grass
+
+Getting Started
+---------------
+
+Install and eexecute the project locally into your $HOME/bin directory. If you
+don't already have a bin directory for your bash scripts, create one
+to store your bash scripts.
+
+**Documentation.** For more information, read the step by step guide on
+using GDAL and GRASS GIS to extract river profiles. 
+
+https://grass-gis-to-extract-river-profiles.readthedocs.io/en/latest/
+
+
+Example usage
+~~~~~~~~~~~~~
+
+.. code:: bash
+
+   $ extract-rivers
+
+::
+An automated method to extract rivers using GRASS GIS
+
+Usage: ./../grass-river-extraction-tools-v1/extract_rivers.sh [OPTIONS] -d <grassdir> -f <dem> -s <shapefile> -t <threshold>
+
+ARGUMENTS
+	-d | --grassdir		GRASS PROJECT directory
+	-f | --dem		    Filled DEM to upload
+	-s | --shapefile	Shapefile to mask DEM
+	-t | --threshold	minimum catchment size (pixels)
+OPTIONS
+	-o | --overwrite	Overwrite existing files
+	-h | --help		help
+
+
+Contribute!
+-----------
+
+Please contribute! Use `Github Flow <https://guides.github.com/introduction/flow/index.html>`_ to suggest changes.
+
+- Fork the repo and create your branch in master - send me pull requests.
+
+- Documentation uses `Python-Sphinx <http://www.sphinx-doc.org/en/master/>`_ and `reStructuredText <http://docutils.sourceforge.net/rst.html>`_ syntax
+
 
 Project Organization
 ------------
 
     ├── LICENSE
-    ├── Makefile           <- Makefile with commands like `make data` or `make train`
+    ├── Makefile           <- Makefile with commands like `make data`
     ├── README.md          <- The top-level README for developers using this project.
     ├── data
     │   ├── external       <- Data from third party sources.
@@ -18,17 +83,6 @@ Project Organization
     │
     ├── docs               <- A default Sphinx project; see sphinx-doc.org for details
     │
-    ├── models             <- Trained and serialized models, model predictions, or model summaries
-    │
-    ├── notebooks          <- Jupyter notebooks. Naming convention is a number (for ordering),
-    │                         the creator's initials, and a short `-` delimited description, e.g.
-    │                         `1.0-jqp-initial-data-exploration`.
-    │
-    ├── references         <- Data dictionaries, manuals, and all other explanatory materials.
-    │
-    ├── reports            <- Generated analysis as HTML, PDF, LaTeX, etc.
-    │   └── figures        <- Generated graphics and figures to be used in reporting
-    │
     ├── requirements.txt   <- The requirements file for reproducing the analysis environment, e.g.
     │                         generated with `pip freeze > requirements.txt`
     │
@@ -36,27 +90,15 @@ Project Organization
     ├── src                <- Source code for use in this project.
     │   ├── __init__.py    <- Makes src a Python module
     │   │
-    │   ├── data           <- Scripts to download or generate data
-    │   │   └── make_dataset.py
-    │   │
-    │   ├── features       <- Scripts to turn raw data into features for modeling
-    │   │   └── build_features.py
-    │   │
-    │   ├── models         <- Scripts to train models and then use trained models to make
-    │   │   │                 predictions
-    │   │   ├── predict_model.py
-    │   │   └── train_model.py
-    │   │
     │   └── visualization  <- Scripts to create exploratory and results oriented visualizations
     │       └── visualize.py
     │
     └── tox.ini            <- tox file with settings for running tox; see tox.testrun.org
 
 
+
 --------
 
 <p><small>Project based on the <a target="_blank" href="https://drivendata.github.io/cookiecutter-data-science/">cookiecutter data science project template</a>. #cookiecutterdatascience</small></p>
 =======
-# grass-river-extraction-tools
-An automated method to extract river profiles using GRASS GIS
->>>>>>> origin/master
+
