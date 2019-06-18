@@ -90,9 +90,3 @@ River outputs can be visualised by running:
 .. code:: bash
 
    $ visualise-dem
-
-
-
-
-
-
