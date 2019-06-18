@@ -45,6 +45,7 @@ Example usage
    $ extract-rivers
 
 ::
+
    An automated method to extract rivers using GRASS GIS
 
    Usage: ./../grass-river-extraction-tools-v1/extract_rivers.sh [OPTIONS] -d <grassdir> -f <dem> -s <shapefile> -t <threshold>
