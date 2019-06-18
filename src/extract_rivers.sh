@@ -2,7 +2,7 @@
 
 # ---------------------------------------------------------------
 #      This script extracts river profiles using 
-#      GDAL and GRASS GIS tools 
+#      GDAL, RichDEM and GRASS GIS tools 
 #      for use with the 2d river inversion model
 #
 #      Carla Pont - 17/June/2019
