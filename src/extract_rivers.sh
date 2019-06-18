@@ -1,7 +1,8 @@
 #!/bin/bash
 
 # ---------------------------------------------------------------
-#      This script extracts river profiles using GRASS GIS tools 
+#      This script extracts river profiles using 
+#      GDAL and GRASS GIS tools 
 #      for use with the 2d river inversion model
 #
 #      Carla Pont - 17/June/2019
@@ -14,15 +15,16 @@ usage() {
    echo ""
    echo "An automated method to extract rivers using GRASS GIS"
    echo "" 
-   echo "Usage: $0 [OPTIONS] -d <grassdir> -f <dem> -s <shapefile> -t <threshold>"
+   echo "Usage: $0 [OPTIONS] -d <grassdir> -f <dem> -p <projection> -s <shapefile> -t <threshold>"
    echo ""
    echo "ARGUMENTS"
    echo "	-d | --grassdir		GRASS PROJECT directory"
-   echo "	-f | --dem		Filled DEM to upload"
+   echo "	-f | --dem		Name of unprojected DEM"
+   echo "	-p | --projection	Projection"
    echo "	-s | --shapefile	Shapefile to mask DEM"
    echo "	-t | --threshold	minimum catchment size (pixels)"
-   echo "        -n | --number           max number of rivers to extract"
    echo "OPTIONS"
+   echo "        -n | --number           Number of rivers to extract. Default: all rivers"
    echo "	-o | --overwrite	Overwrite existing files"
    echo "	-h | --help		help"
    echo ""  
@@ -30,9 +32,7 @@ usage() {
 }
 
 
-##### Main
-
-# Read input parameters from command line
+##### Read input parameters from command line
 
 args=$*
 
@@ -44,7 +44,11 @@ while [ "$1" != "" ]; do
          ;;
       -f | --dem )
          shift
-         DEM=$1
+         GRID=$1
+         ;;
+      -p | --projection )
+         shift
+         PROJ=$1
          ;;
       -s | --shapefile )
          shift
@@ -74,13 +78,27 @@ while [ "$1" != "" ]; do
    shift
 done
 
-#Check if all command line arguments are present
+#### Setting output filename for DEM
 
-if [[ -z $GRASSDIR || -z $DEM || -z $COAST || -z $THRESHOLD || -z $NO_RIVERS ]]; then
+filename=${GRID##*/} 
+PROJ_DEM=${filename%.*}_${PROJ}.tif
+DEM=${PROJ_DEM%.*}_fill.tif
+
+### Check if all command line arguments are present
+
+if [[ -z $GRASSDIR || -z $GRID || -z $PROJ || \
+   -z $COAST || -z $THRESHOLD ]]; then
 	echo "Error: required arguments not set"
 	usage
 	exit 1
 fi
+
+
+##################################
+#                                #
+#   MAIN()                       #
+#                                #
+##################################
 
 # Checks if you are in GRASS GIS environment, 
 # else starts the environment to run the script
@@ -88,18 +106,47 @@ fi
 #[POSSIBLE TO INCLUDE OPTION TO USE TMP LOCATION?]
 
 if [[ -z $GISBASE ]]; then
-	grass77 -e -c ${DEM} ${GRASSDIR}
    echo ""
-   echo "------------------------------------"
+   echo "--------------------------------------------------------------"
+   echo "Reprojecting new raster $filename"
+   echo "--------------------------------------------------------------"
+   echo ""
+   gdalwarp -t_srs "$PROJ" ${GRID} ${PROJ_DEM}         # Projecting DEM
+   echo ""
+   echo "--------------------------------------------------------------"
+   echo ""
+   echo "Filling ${PROJ_DEM} using RichDEM"   
+   rd_depression_filling ${PROJ_DEM} ${DEM}            # Filling DEM using RICHDEM
+   echo ""
+   echo "--------------------------------------------------------------"
+	echo "Creating new GRASS PROJECT at ${GRASSDIR}"
+   echo "--------------------------------------------------------------"
+   echo ""
+	grass77 -e -c ${DEM} ${GRASSDIR}                   # Creating GRASS DIRECTORY
+   echo ""
+   echo "--------------------------------------------------------------"
 	echo "Starting GRASS GIS with ${0} ${args}"
-   echo "------------------------------------"
+   echo "--------------------------------------------------------------"
    echo ""
-	grass77 --text ${GRASSDIR}/PERMANENT --exec ${0} ${args}
+	grass77 --text ${GRASSDIR}/PERMANENT --exec ${0} ${args} # Running script to \                                                           # extract rivers
 	exit
 fi
 
+
+
+##################################
+#                                #
+#   EXTRACTING RIVERS            #
+#   IN GRASS GIS                 #
+#                                #
+##################################
+
+
 #Loading projected and filled DEM into GRASS
 
+echo "--------------------------------------------------------"
+echo "Loading ${DEM} into GRASS                               "
+echo "- -------------------------------------------------------"
 r.in.gdal input=$DEM output=dem $command_args
 
 #Set region to DEM
@@ -120,7 +167,7 @@ echo "DEM masked to coastline"
 echo "-----------------------"
 echo ""
 
-#Calculate flow accumulation using a SFD
+#Calculate flow accumulation using a SFD. 
 echo "----------------------------------------------------------"
 echo "Extracting flow accumulation using a single flow direction"
 echo "----------------------------------------------------------"
@@ -143,8 +190,12 @@ v.db.addcolumn stream_300 columns="x1 double,x2 double,y1 double,y2 double,tostr
 v.to.db map=stream_300 option=start columns=x1,y1
 v.to.db map=stream_300 option=end columns=x2,y2
 
+#Indexing sqllite database
+
 db.execute sql="create index stream_300_i1 on stream_300(x2,y2)"
 db.execute sql="create index stream_300_i2 on stream_300(x1,y1)"
+
+#Finding cat numbers to linking stream segments
 
 db.execute sql="update stream_300 set tostream=(select s2.cat from stream_300 s2 where stream_300.x2=s2.x1 and stream_300.y2=s2.y1)"
 
@@ -161,7 +212,10 @@ echo "Using resolution: $res and cell area: $SQ_M m^2"
 
 max_rivnum=`db.select -c sql='select COUNT(*) from stream_300 where stream_type="start"'`
 
-if [ "$NO_RIVERS" -lt "${max_rivnum}" ]
+if [ -z "$NO_RIVERS" ]
+   then
+   lim="${max_rivnum}"
+elif [ "$NO_RIVERS" -lt "${max_rivnum}" ]
    then
       lim="$NO_RIVERS"
    else
