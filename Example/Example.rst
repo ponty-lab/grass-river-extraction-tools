@@ -67,3 +67,13 @@ flow direction based on the D8 method.
    
 - *No of rivers* The default is to extract all rivers in the stream network.
   For this example, we will limit the extraction to 50 rivers.
+ 
+Depression Filling method
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+While GRASS GIS does not strictly require the DEM to be filled for channel 
+extraction (See documentation for dicussion on handling depressions), this
+method uses Richdem's depression filling tool based on Barnes et al. (2016) 
+priority-flood algorithm.
+
+Running River Extraction
