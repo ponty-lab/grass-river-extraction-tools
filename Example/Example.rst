@@ -1,22 +1,6 @@
 Quickstart
 ===========
 
-Project organisation
---------------------
-
-This uses the project structure is based on the philosophy of `Cookiecutter Data 
-Science <https://github.com/drivendata/cookiecutter-data-science>`_: *A logical, reasonably standardized, but flexible project structure for doing and sharing data science work*.
-
-::
-
-   ├── Example.rst      <- Quick start instructions to run river extraction.
-   ├── data 
-   │   ├── external     <- Third party data.
-   │   ├── interim      <- Sorted river data
-   │   ├── processed    <- The final, canonical data sets for modeling.
-   │   └── raw          <- The original, immutable data dump (GRASS river data)
-   ├── figures          <- Example of figures to visualise the process.
-
 Getting data
 -------------
 
@@ -39,7 +23,7 @@ a suitable equal areas projection.
 
    $ gdalwarp -t_srs 
    "+proj=lcc +lat_0=52 +lon_0=10 +lat_1=35 +lat_2=65 +ellps=GRS80 +units=m +no_defs" 
-   data/external/Apennines_30m_DEM.tif data/external/Apennines_30m_DEM_LCC.tif
+   data/Apennines_30m_DEM.tif data/Apennines_30m_DEM_LCC.tif
 
 Running River Extraction
 ========================
@@ -56,29 +40,14 @@ priority-flood algorithm.
 
 Parameters
 ----------
-::
-   
-   $ extract-rivers --help
-   
-   An automated method to extract rivers using GRASS GIS
 
-   Usage: ./../grass-river-extraction-tools-v1/extract_rivers.sh [OPTIONS] 
-   -d <grassdir> -f <dem> -s <shapefile> -t <threshold>
- 
-   ARGUMENTS
-      -d | --project       GRASS PROJECT name
-      -f | --dem		      Projected DEM to upload
-      -s | --shapefile	   Shapefile to mask DEM
-      -t | --threshold	   minimum catchment size (pixels)
-   OPTIONS
-      -n | --rivers        Number of rivers to extract. Default: All
-      -o | --overwrite	   Overwrite existing files
-      -h | --help		      help
+- *Grassdir*: The name of the directory to store all your grass files. In this
+example, I have simply called it grass though have a look at the documentation
+for suggested naming conventions. 
 
+- *DEM*: The projected dem.
 
 - *Shapefile*: A high resolution GSHSS coastline is provided within the directory 'data/external'
-
-- *Projection*: Choose an equal areas projection. Here we use an equal areas projection, Lamber Conformal Conic for Europe as the Central Apennines straddles two different UTM zones.
 
 - *Threshold*: We use a 300 pixel threshold, equivalent to a drainage area of 
   0.27 km\ :sup:`2` for the 30 m DEM. This will determine the drainage density, 
@@ -92,10 +61,8 @@ Example usage
 
 .. code:: bash
 
-   $ extract-rivers -d grass -p ESPG:3034 
-   -f data/external/Apennines_30m_DEM_LCC.tif -s data/external/GSHHS_h_L1.shp 
-   -t 300 -n 50
-
+   $ extract-rivers -d grass -p ESPG:3034 -f data/Apennines_30m_DEM_LCC.tif 
+   -s data/GSHHS_h_L1.shp -t 300 -n 50
 
 Visualisation
 -------------
