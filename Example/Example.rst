@@ -77,10 +77,10 @@ method uses Richdem's depression filling tool based on Barnes et al. (2016)
 priority-flood algorithm.
 
 Running River Extraction
--------------------------
+========================
 
 Example usage
-~~~~~~~~~~~~~
+-------------
 
 .. code:: bash
 
