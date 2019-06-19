@@ -77,3 +77,16 @@ method uses Richdem's depression filling tool based on Barnes et al. (2016)
 priority-flood algorithm.
 
 Running River Extraction
+-------------------------
+
+Example usage
+~~~~~~~~~~~~~
+
+.. code:: bash
+
+   $ extract-rivers -d Italy -p ESPG:3034 -f Apennines_30m_DEM.tif 
+   -s data/GSHHS_h_L1.shp -t 300 -n 50
+
+
+Visualisation
+-------------
