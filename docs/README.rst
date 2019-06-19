@@ -1,6 +1,6 @@
 
 Quickstart
-==========
+============
 
 A command-line tool to automatically extract river profiles 
 from digital elevation models using GDAL and GRASS GIS.
