@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 
 from osgeo import gdal
 import numpy as np
@@ -7,13 +7,13 @@ import matplotlib.pyplot as plt
 import click
 
 @click.command()
-@click.option('--dem', help="Name of DEM")
-@click.option('--region', help="Name of region")
+@click.option('--dem', help="Name of DEM", required=True)
+@click.option('--region', help="Name of region", required=True)
 
 def plot(dem, region):
     """Simple program to plot DEM"""
 
-    gdal_data = gdal.Open(dem,)
+    gdal_data = gdal.Open(dem)
     gdal_band = gdal_data.GetRasterBand(1)
     nodataval = gdal_band.GetNoDataValue()
 
