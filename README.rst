@@ -4,7 +4,6 @@ Grass River Extraction Tools
 A command-line tool to automatically extract river profiles 
 from digital elevation models using GDAL, Richdem and GRASS GIS.
 
-
 Prerequisites
 -------------
 
@@ -20,8 +19,8 @@ Install the following packages, if you don't already have them.
    $ sudo apt-get update
    $ sudo apt-get install grass
 
-Install
--------
+Installation
+------------
 
 To create a virtual environment:
 
@@ -30,7 +29,8 @@ To create a virtual environment:
    $ python3 -m venv test.env 
    $ . test.venv/bin/activate
 
-Clone from here and install the local package: 
+Once the packages have been installed, clone the tools from here and 
+install the local package: 
 
 .. code:: bash
 
@@ -60,11 +60,11 @@ using GDAL, Richdem and GRASS GIS to extract river profiles.
 
 https://grass-gis-to-extract-river-profiles.readthedocs.io/en/latest/
 
-Example River Extraction
--------------------------
+Tutorials
+---------
 
 Instructions on how to use the river extraction with an example datset is
-available in the *Example* directory.
+available in the `Example directory <https://github.com/pontc/grass-river-extraction-tools/tree/master/Example>`_.
 
 
 Contribute!

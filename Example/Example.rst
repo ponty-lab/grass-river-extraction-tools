@@ -21,9 +21,7 @@ a suitable equal areas projection.
 
 .. code:: bash
 
-   $ gdalwarp -t_srs 
-   "+proj=lcc +lat_0=52 +lon_0=10 +lat_1=35 +lat_2=65 +ellps=GRS80 +units=m +no_defs" 
-   data/Apennines_30m_DEM.tif data/Apennines_30m_DEM_LCC.tif
+   $ gdalwarp -t_srs "+proj=lcc +lat_0=52 +lon_0=10 +lat_1=35 +lat_2=65 +ellps=GRS80 +units=m +no_defs" data/Apennines_30m_DEM.tif data/Apennines_30m_DEM_LCC.tif
 
 Running River Extraction
 ========================
@@ -42,12 +40,13 @@ Parameters
 ----------
 
 - *Grassdir*: The name of the directory to store all your grass files. In this
-example, I have simply called it grass though have a look at the documentation
-for suggested naming conventions. 
+   example, I have simply called it grass though have a look at the documentation
+   for suggested naming conventions. 
 
 - *DEM*: The projected dem.
 
-- *Shapefile*: A high resolution GSHSS coastline is provided within the directory 'data/external'
+- *Shapefile*: A high resolution GSHSS coastline is provided within the directory 
+  'data/external'
 
 - *Threshold*: We use a 300 pixel threshold, equivalent to a drainage area of 
   0.27 km\ :sup:`2` for the 30 m DEM. This will determine the drainage density, 
@@ -61,8 +60,7 @@ Example usage
 
 .. code:: bash
 
-   $ extract-rivers -d grass -p ESPG:3034 -f data/Apennines_30m_DEM_LCC.tif 
-   -s data/GSHHS_h_L1.shp -t 300 -n 50
+   $ extract-rivers -d grass -f data/Apennines_30m_DEM_LCC.tif -s data/GSHHS_h_L1.shp -t 300 -n 50
 
 Visualisation
 -------------

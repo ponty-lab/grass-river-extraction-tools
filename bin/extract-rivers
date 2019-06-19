@@ -109,13 +109,13 @@ if [[ -z $GISBASE ]]; then
 	echo "Creating new GRASS PROJECT at ${GRASSDIR}"
    echo "--------------------------------------------------------------"
    echo ""
-	grass77 -e -c ${DEM} ${GRASSDIR}                   # Creating GRASS DIRECTORY
+	grass76 -e -c ${DEM} ${GRASSDIR}                   # Creating GRASS DIRECTORY
    echo ""
    echo "--------------------------------------------------------------"
 	echo "Starting GRASS GIS with ${0} ${args}"
    echo "--------------------------------------------------------------"
    echo ""
-	grass77 --text ${GRASSDIR}/PERMANENT --exec ${0} ${args} # Running script to \                                                           # extract rivers
+	grass76 --text ${GRASSDIR}/PERMANENT --exec ${0} ${args} # Running script to \                                                           # extract rivers
 	exit
 fi
 
@@ -168,7 +168,7 @@ echo "Extracting stream network using THRESHOLD: $THRESHOLD pixels"
 echo "------------------------------------------------------------"
 echo ""
 
-r.stream.extract elevation=dem accumulation=facc threshold=$THRESHOLD stream_rast=stream_$THRESHOLD stream_vector=stream_$THRESHOLD direction=fdir $command_args
+r.stream.extract elevation=dem accumulation=facc threshold=$THRESHOLD stream_rast=stream_$THRESHOLD stream_vector=stream_$THRESHOLD direction=fdir memory=10000 $command_args
 
 #Linking river segments to their downstream portion using 
 #its unique cat number
