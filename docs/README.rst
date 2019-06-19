@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Quickstart
 ============
 
@@ -90,3 +91,5 @@ River outputs can be visualised by running:
 .. code:: bash
 
    $ visualise-dem
+=======
+>>>>>>> parent of 5cc501c... test
