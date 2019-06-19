@@ -27,3 +27,27 @@ for your area of interest. In this example, we are downloading tiles covering th
 .. code:: bash
 
    $ eio clip -o Apennines_30m_DEM.tif --bounds 12 41 14 44
+
+Parameters
+-----------
+
+::
+
+   An automated method to extract rivers using GRASS GIS
+
+   Usage: ./../grass-river-extraction-tools-v1/extract_rivers.sh [OPTIONS] 
+   -d <grassdir> -f <dem> -s <shapefile> -t <threshold>
+
+   ARGUMENTS
+      -d | --project       GRASS PROJECT name
+      -f | --dem		      Filled DEM to upload
+      -p | --projection    Projection
+      -s | --shapefile	   Shapefile to mask DEM
+      -t | --threshold	   minimum catchment size (pixels)
+   OPTIONS
+      -n | --rivers        Number of rivers: default all
+      -o | --overwrite	   Overwrite existing files
+      -h | --help		      help
+
+The code will extract a stream network for a given threshold using a single
+flow direction based on the D8 method. 
