@@ -51,3 +51,19 @@ Parameters
 
 The code will extract a stream network for a given threshold using a single
 flow direction based on the D8 method. 
+
+- *Shapefile*
+  A high resolution GSHSS coastline is provided within the directory 'data'
+
+- *Projection*
+  Here we use an equal areas projection, Lamber Conformal Conic for Europe.
+  Choose an equal areas projection, note that the Central Apennines straddles
+  2 UTM zones.
+
+- *Threshold*
+  We use a 300 pixel threshold, equivalent to a drainage area of 
+  0.27 km\ :sup:`2` for the 30 m DEM. This will determine the drainage density, 
+  a higher threshold value will reduce drainage density. 
+   
+- *No of rivers* The default is to extract all rivers in the stream network.
+  For this example, we will limit the extraction to 50 rivers.
