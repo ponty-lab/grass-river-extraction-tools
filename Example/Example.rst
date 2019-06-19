@@ -37,8 +37,9 @@ a suitable equal areas projection.
 
 .. code:: bash
 
-   $ gdalwarp -t_srs "+proj=lcc +lat_0=52 +lon_0=10 +lat_1=35 +lat_2=65 +ellps=GRS80 +units=m +no_defs" data/external/Apennines_30m_DEM.tif 
-   data/external/Apennines_30m_DEM_LCC.tif
+   $ gdalwarp -t_srs 
+   "+proj=lcc +lat_0=52 +lon_0=10 +lat_1=35 +lat_2=65 +ellps=GRS80 +units=m +no_defs" 
+   data/external/Apennines_30m_DEM.tif data/external/Apennines_30m_DEM_LCC.tif
 
 Running River Extraction
 ========================
@@ -91,7 +92,9 @@ Example usage
 
 .. code:: bash
 
-   $ extract-rivers -d grass -p ESPG:3034 -f data/external/Apennines_30m_DEM_LCC.tif -s data/external/GSHHS_h_L1.shp -t 300 -n 50
+   $ extract-rivers -d grass -p ESPG:3034 
+   -f data/external/Apennines_30m_DEM_LCC.tif -s data/external/GSHHS_h_L1.shp 
+   -t 300 -n 50
 
 
 Visualisation

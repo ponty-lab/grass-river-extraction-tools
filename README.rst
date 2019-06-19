@@ -15,6 +15,7 @@ Install the following packages, if you don't already have them.
 -  GRASS GIS 7.6
 
 .. code:: bash
+
    $ sudo add-apt-repository ppa:ubuntugis/ubuntugis-unstable
    $ sudo apt-get update
    $ sudo apt-get install grass
@@ -35,10 +36,6 @@ Clone from here and install the local package:
 
    $ git clone git@github.com:pontc/grass-river-extraction-tools.git
    $ pip install -e extract-rivers
-
-
-.. code:: bash
-
    $ extract-rivers --help
 
    An automated method to extract rivers using GRASS GIS
@@ -47,7 +44,7 @@ Clone from here and install the local package:
 
    ARGUMENTS
    	-d | --grassdir		GRASS PROJECT directory
-   	-f | --dem		    Filled DEM to upload
+   	-f | --dem		   Filled DEM to upload
    	-s | --shapefile	Shapefile to mask DEM
    	-t | --threshold	minimum catchment size (pixels)
    OPTIONS
@@ -59,7 +56,7 @@ Documentation
 ---------------
 
 For more information, read the step by step guide on
-using GDAL and GRASS GIS to extract river profiles. 
+using GDAL, Richdem and GRASS GIS to extract river profiles. 
 
 https://grass-gis-to-extract-river-profiles.readthedocs.io/en/latest/
 
