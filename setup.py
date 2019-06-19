@@ -9,7 +9,7 @@ setup(
     author_email='c.pont17@imperial.ac.uk',
     url="https://grass-gis-to-extract-river-profiles.readthedocs.io",
     license='MIT',
-    scripts = ['bin/extract-rivers'],
+    scripts = ['bin/extract-rivers', 'bin/process-rivers'],
     entry_points = {
             'console_scripts': ["visualise = src.visualise_dem:plot"]
     }

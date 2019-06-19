@@ -11,7 +11,7 @@ In this example, we download tiles covering the region of the Central Apennines 
 
 .. code:: bash
 
-   $ eio clip -o data/external/Apennines_30m_DEM.tif --bounds 12 41 14 44
+   $ eio clip -o data/Apennines_30m_DEM.tif --bounds 12 41 14 44
 
 Projecting DEM
 --------------
@@ -27,7 +27,7 @@ Running River Extraction
 ========================
 
 The programme will extract a stream network using a given drainage 
-area threshold based on D8 method for single flowd irection. 
+area threshold based on D8 method for single flow direction. 
 
 **Depression Filling method**
 
@@ -52,7 +52,7 @@ Parameters
   0.27 km\ :sup:`2` for the 30 m DEM. This will determine the drainage density, 
   a higher threshold value will reduce drainage density. 
    
-- *No of rivers* The default is to extract all rivers in the stream network.
+- *No of rivers*: The default is to extract all rivers in the stream network.
   For this example, we will limit the extraction to 50 rivers.
  
 Example usage
@@ -60,14 +60,23 @@ Example usage
 
 .. code:: bash
 
-   $ extract-rivers -d grass -f data/Apennines_30m_DEM_LCC.tif -s data/GSHHS_h_L1.shp -t 300 -n 50
+   $ extract-rivers -p grass -d data/Apennines_30m_DEM_LCC.tif -s data/GSHHS_h_L1.shp -t 300 -n 50
+
+This will take approximately 7 mins to run.
 
 Visualisation
 -------------
+
+Before running any visualisations, make sure that your data has been processed to
+sort the river data for plotting:
+
+.. code:: bash
+
+   $ process-rivers -i data/raw -o data/interim
+
 
 River outputs can be visualised by running:
 
 .. code:: bash
 
    $ visualise-dem
-

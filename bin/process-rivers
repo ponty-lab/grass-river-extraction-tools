@@ -1,0 +1,72 @@
+#!/bin/bash
+
+# ---------------------------------------------------------------
+#      This script extracts processes river profiles 
+#      extracted from GRASS GIS in a format ready
+#      for use with the 2d river inversion model
+#
+#      Carla Pont - 17/June/2019
+# ---------------------------------------------------------------
+
+
+##### Functions
+
+usage() {
+   echo ""
+   echo "Processing raw river data from GRASS GIS"
+   echo "" 
+   echo "Usage: $0 -i <indir> -o <outdir>"
+   echo ""
+   echo "ARGUMENTS"
+   echo "	-i | --indir		Directory containining raw GRASS river"
+   echo "	-o | --outdir		Output directory for processed river data"
+   echo ""  
+   exit 1
+}
+
+while [ "$1" != "" ]; do
+   case $1 in
+      -i | --indir )
+         shift
+         indir=$1
+         ;;
+      -o | --outdir )
+         shift
+         outdir=$1
+         ;;
+      -h | --help )
+         usage
+         exit
+         ;;
+      * )
+         echo "Error: $1 not recognised"
+         usage
+         exit 1
+   esac
+   shift
+done
+
+if [[ -z $indir|| -z $outdir ]]; then
+	echo "Error: required arguments not set"
+	usage
+	exit 1
+fi
+
+#Main
+
+##################################
+#                                #
+#   PROCESSING RIVERS            #
+#   EXTRACTED FROM GRASS GIS     #
+#                                #
+##################################
+
+for file in $indir*; do
+    f=`echo "$file" | sed 's/\.[^.]*$//'`
+    riv_no=`[[ $f =~ ([0-9]+)$ ]] && echo "${BASH_REMATCH[1]}"`
+    echo "working on $file..."
+    awk -F, '{if (NR > 1) print $1, $2, int($5), int($4), int($6) | "sort -k4,4g -k5,5"}' $file > sorted.tmp
+    awk '$5<last{next} {last=$5} 1' sorted.tmp > $outdir/obs_riv$riv_no
+done
+
+rm -f *.tmp
