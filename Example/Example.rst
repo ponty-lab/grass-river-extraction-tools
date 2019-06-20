@@ -101,8 +101,8 @@ Visualisation
 .. image:: https://github.com/pontc/grass-river-extraction-tools/blob/master/Example/figures/riv2858.png
    :scale: 40 %
 
-Your rivers are ready for plotting and analysis! River outputs can be visualised by running:
+Your rivers are ready for plotting and analysis! River outputs can be visualised by running - make sure to change the river number to one of your ouput rivers:
 
 .. code:: bash
 
-   $ visualise-dem --name "Central Apennines" --dem data/Apennines_30m_DEM.tif --directory figures/ --river data/raw/riv2858.dat
+   $ visualise --name "Central Apennines" --dem data/Apennines_30m_DEM.tif --directory figures/ --river riv2858.dat
