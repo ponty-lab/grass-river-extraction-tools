@@ -99,6 +99,7 @@ Visualisation
 -------------
 
 .. image:: https://github.com/pontc/grass-river-extraction-tools/blob/master/Example/figures/riv2858.png
+   :scale: 60%
 
 Your rivers are ready for plotting and analysis! River outputs can be visualised by running:
 
