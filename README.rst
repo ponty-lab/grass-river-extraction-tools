@@ -56,7 +56,7 @@ bit fiddly!)
 
 Launch GRASS GIS and enable the following extensions:
 
-..code:: bash
+.. code:: bash
 
    GRASS :~ > g.extension r.stream.extract r.stream.basins
 
