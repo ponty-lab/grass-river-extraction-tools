@@ -218,7 +218,7 @@ time for start_node in `db.select -c sql='select cat from stream_300 where strea
    #Convert to polyline (to remove duplicate vertices)
    v.build.polylines input=line_${start_node} output=cpath_${start_node} $command_args
    #Extract X, Y coordinates and distance along channel
-   v.to.points -i input=cpath_${start_node} output=pnt_${start_node} use=vertex dmax=${nsres} layer=-1 $command_args
+   v.to.points input=cpath_${start_node} output=pnt_${start_node} use=vertex layer=-1 $command_args
    #Remove superfluous points for v.build.polylines
    v.extract input=pnt_${start_node} where="along > 0" output=cpathpnt_${start_node} layer=2 $command_args
    #Extract elevation at each point

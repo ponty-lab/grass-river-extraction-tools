@@ -65,7 +65,8 @@ for file in $indir*; do
     f=`echo "$file" | sed 's/\.[^.]*$//'`
     riv_no=`[[ $f =~ ([0-9]+)$ ]] && echo "${BASH_REMATCH[1]}"`
     echo "working on $file..."
-    awk -F, '{if (NR > 1) print $1, $2, int($5), int($4), int($6) | "sort -k4,4g -k5,5"}' $file > sorted.tmp
+    awk -F, '{sub("-", " ", $6); print $1, $2, int($5), int($4), int($6) | "sort -k4,4g -k5,5"}' $file > sorted.tmp
+    sed -i '/east north 0 0 0/d' sorted.tmp
     awk '$5<last{next} {last=$5} 1' sorted.tmp > $outdir/obs_riv$riv_no
 done
 

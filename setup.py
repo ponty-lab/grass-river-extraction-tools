@@ -11,6 +11,6 @@ setup(
     license='MIT',
     scripts = ['bin/extract-rivers', 'bin/process-rivers'],
     entry_points = {
-            'console_scripts': ["visualise = src.visualise_dem:plot"]
+            'console_scripts': ["visualise = src.visualise_dem:visualise"]
     }
 )

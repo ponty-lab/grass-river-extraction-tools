@@ -40,11 +40,11 @@ install the local package:
 
    An automated method to extract rivers using GRASS GIS
 
-   Usage: ./../grass-river-extraction-tools-v1/extract_rivers.sh [OPTIONS] -d <grassdir> -f <dem> -s <shapefile> -t <threshold>
+   Usage: ./../grass-river-extraction-tools-v1/extract_rivers.sh [OPTIONS] -p <grassdir> -d <dem> -s <shapefile> -t <threshold>
 
    ARGUMENTS
-   	-d | --grassdir		GRASS PROJECT directory
-   	-f | --dem		   Filled DEM to upload
+   	-p | --grassdir		GRASS PROJECT directory
+   	-d | --dem		   Filled DEM to upload
    	-s | --shapefile	Shapefile to mask DEM
    	-t | --threshold	minimum catchment size (pixels)
    OPTIONS
