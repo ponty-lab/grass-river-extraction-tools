@@ -9,7 +9,7 @@ Prerequisites
 
 Install the following packages, if you don't already have them.
 
--  Python 2 or 3
+-  Python 3.6 or greater
 
 -  GRASS GIS 7.6
 
@@ -19,23 +19,40 @@ Install the following packages, if you don't already have them.
    $ sudo apt-get update
    $ sudo apt-get install grass
 
+- GDAL
+
+.. code:: bash
+
+    sudo add-apt-repository ppa:ubuntugis/ppa && sudo apt-get update
+    sudo apt-get update
+    sudo apt-get install gdal-bin
+    sudo apt-get install libgdal-dev
+
 Installation
 ------------
 
-To create a virtual environment:
+To create a virtual environment, replace *tmp* with the name of your env:
 
 .. code:: bash
 
    $ python3 -m venv test.env 
    $ . test.venv/bin/activate
 
-Once the packages have been installed, clone the tools from here and 
-install the local package: 
+Once pre-requisites have been installed, clone the local package 
+from here and install : 
 
 .. code:: bash
 
    $ git clone git@github.com:pontc/grass-river-extraction-tools.git
    $ pip install -e extract-rivers
+
+Now finish up the GDAL installation, run this after pip installing
+the local packages to avoid errors (fingers crossed it works, its a 
+bit fiddly!)
+
+.. code:: bash
+
+    pip install GDAL==$(gdal-config --version) --global-option=build_ext --global-option="-I/usr/include/gdal" 
 
 Quick Start
 -----------
@@ -56,6 +73,7 @@ To extract rivers from GRASS GIS, run:
    	-s | --shapefile	Shapefile to mask DEM
    	-t | --threshold	minimum catchment size (pixels)
    OPTIONS
+    -n | --number           Number of rivers to extract. Default: All
    	-o | --overwrite	Overwrite existing files
    	-h | --help		help
 
@@ -63,13 +81,15 @@ To check river extraction, run the visualisation tool:
 
 .. code:: bash
 
+    $ visualise --help
+
     Usage: visualise [OPTIONS]
 
-    Simple program to plot DEM
+    Simple tool to visualise River Extraction
 
     Options:
     --name TEXT       Name of region  [required]
-    --dem TEXT        Name of DEM  [required]
+    --dem TEXT        Name of lat/lng DEM  [required]
     --directory TEXT  Output directory  [required]
     --river TEXT      River file  [required]
     --help            Show this message and exit.
@@ -78,7 +98,7 @@ To check river extraction, run the visualisation tool:
 Documentation
 ---------------
 
-For more information, read the step by step guide on
+For more information, read the `step by step guide <https://grass-gis-to-extract-river-profiles.readthedocs.io/en/latest/>`_ on
 using GDAL, Richdem and GRASS GIS to extract river profiles. 
 
 https://grass-gis-to-extract-river-profiles.readthedocs.io/en/latest/
@@ -86,7 +106,7 @@ https://grass-gis-to-extract-river-profiles.readthedocs.io/en/latest/
 Tutorials
 ---------
 
-Instructions on how to use the river extraction with an example datset is
+A simple tutorial on how to use the river extraction with an example datset is
 available in the `Example directory <https://github.com/pontc/grass-river-extraction-tools/tree/master/Example>`_.
 
 
