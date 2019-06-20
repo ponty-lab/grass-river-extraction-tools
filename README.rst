@@ -54,6 +54,12 @@ bit fiddly!)
 
     pip install GDAL==$(gdal-config --version) --global-option=build_ext --global-option="-I/usr/include/gdal" 
 
+Launch GRASS GIS and enable the following extensions:
+
+..code:: bash
+
+   GRASS :~ > g.extension r.stream.extract r.stream.basins
+
 Quick Start
 -----------
 
