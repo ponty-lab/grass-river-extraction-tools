@@ -77,12 +77,12 @@ def plot_river(x, y1, y2, directory, number):
 
 @click.command()
 @click.option('--name', help="Name of region", required=True)
-@click.option('--dem', help="Name of DEM", required=True)
+@click.option('--dem', help="Name of lat/lng DEM", required=True)
 @click.option('--directory', help="Output directory", required=True)
 @click.option('--river', help="River file", required=True)
 def visualise(name, dem, directory, river):
 
-    """Simple program to visualise River Extraction"""
+    """Simple tool to visualise River Extraction"""
 
     import csv
     from pathlib import Path
@@ -96,7 +96,6 @@ def visualise(name, dem, directory, river):
     x = []
     y1 = []
     y2 = []
-
     
     r = Path(river)
     number = int(r.name[3:-4])
