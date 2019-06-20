@@ -24,7 +24,7 @@ requires = ["numpy", "Cartopy", "richdem",
             "pygdal=="+libgdal_version()]
 
 setup(
-    name='src',
+    name='grass-river-extraction-tools',
     packages=find_packages(),
     version='0.1.0',
     description='Automated method to extract river profiles using GRASS GIS',

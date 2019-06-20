@@ -24,9 +24,7 @@ Install the following packages, if you don't already have them.
 .. code:: bash
 
     sudo add-apt-repository ppa:ubuntugis/ppa && sudo apt-get update
-    sudo apt-get update
-    sudo apt-get install gdal-bin
-    sudo apt-get install libgdal-dev
+    sudo apt-get install gdal-bin libgdal-dev
 
 Installation
 ------------
@@ -45,14 +43,6 @@ from here and install:
 
    $ git clone git@github.com:pontc/grass-river-extraction-tools.git
    $ pip install -e grass-river-extraction-tools
-
-Now finish up the GDAL installation, run this after pip installing
-the local packages to avoid errors (fingers crossed it works, its a 
-bit fiddly!)
-
-.. code:: bash
-
-    pip install GDAL==$(gdal-config --version) --global-option=build_ext --global-option="-I/usr/include/gdal" 
 
 Launch GRASS GIS and enable the following extensions:
 
