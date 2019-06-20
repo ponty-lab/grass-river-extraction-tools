@@ -1,5 +1,8 @@
 from setuptools import find_packages, setup
 
+requires = ["numpy", "Cartopy", "richdem", 
+    "matplotlib", "elevation", "click==6.7", "scipy"]
+
 setup(
     name='src',
     packages=find_packages(),
@@ -11,6 +14,10 @@ setup(
     license='MIT',
     scripts = ['bin/extract-rivers'],
     entry_points = {
-            'console_scripts': ["visualise = src.visualise_dem:visualise"]
-    }
+            "console_scripts": [
+                "visualise = src.visualise_dem:visualise"
+            ]
+    },
+    install_requires=requires,
+    python_requires='~=3.6'
 )
