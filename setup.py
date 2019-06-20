@@ -15,7 +15,7 @@ setup(
     scripts = ['bin/extract-rivers'],
     entry_points = {
             "console_scripts": [
-                "visualise = src.visualise_dem:visualise"
+                "visualise = grass_river_extraction_tools.visualise_dem:main"
             ]
     },
     install_requires=requires,
