@@ -1,14 +1,11 @@
 appdirs==1.4.3
 Cartopy==0.17.0
-certifi==2019.6.16
-chardet==3.0.4
 click==6.7
 cycler==0.10.0
 elevation==1.0.6
 fasteners==0.15
 future==0.17.1
 GDAL==2.3.2
-idna==2.8
 kiwisolver==1.1.0
 matplotlib==3.1.0
 monotonic==1.5
@@ -18,10 +15,8 @@ pykdtree==1.3.1
 pyparsing==2.4.0
 pyshp==2.1.0
 python-dateutil==2.8.0
-requests==2.22.0
 richdem==0.3.4
 scipy==1.3.0
 Shapely==1.6.4.post2
 six==1.12.0
--e git+git@github.com:pontc/grass-river-extraction-tools.git@062de193dfc208a7f332a42a6de6adfc8b3fce04#egg=src
 urllib3==1.25.3
