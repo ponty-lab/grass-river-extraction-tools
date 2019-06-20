@@ -82,7 +82,7 @@ def plot_river(x, y1, y2, directory, number):
 @click.option('--river', help="River file", required=True)
 def visualise(name, dem, directory, river):
 
-    """Simple program to plot DEM"""
+    """Simple program to visualise River Extraction"""
 
     import csv
     from pathlib import Path

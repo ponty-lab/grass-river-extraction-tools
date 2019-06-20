@@ -36,6 +36,14 @@ install the local package:
 
    $ git clone git@github.com:pontc/grass-river-extraction-tools.git
    $ pip install -e extract-rivers
+
+Quick Start
+-----------
+
+To extract rivers from GRASS GIS, run:
+
+.. code:: bash
+
    $ extract-rivers --help
 
    An automated method to extract rivers using GRASS GIS
@@ -50,6 +58,21 @@ install the local package:
    OPTIONS
    	-o | --overwrite	Overwrite existing files
    	-h | --help		help
+
+To check river extraction, run the visualisation tool:
+
+.. code:: bash
+
+    Usage: visualise [OPTIONS]
+
+    Simple program to plot DEM
+
+    Options:
+    --name TEXT       Name of region  [required]
+    --dem TEXT        Name of DEM  [required]
+    --directory TEXT  Output directory  [required]
+    --river TEXT      River file  [required]
+    --help            Show this message and exit.
 
 
 Documentation
