@@ -1,6 +1,8 @@
 Quickstart
 ===========
 
+.. image:: https://github.com/pontc/grass-river-extraction-tools/blob/master/Example/figures/dem.png
+
 Getting data
 -------------
 
@@ -32,25 +34,25 @@ area threshold based on D8 method for single flow direction.
 **Depression Filling method**
 
 While GRASS GIS does not strictly require the DEM to be filled for channel 
-extraction (see documentation for further discussion on handling depressions), this
-fills the DEM using Richdem's depression filling tool based on Barnes et al. (2016)
-priority-flood algorithm.
+extraction (see `documentation <https://grass-gis-to-extract-river-profiles.readthedocs.io/en/latest/>`_ 
+for further discussion on handling depressions), DEM's are filled using Richdem's 
+depression filling tool based on Barnes et al. (2016) priority-flood algorithm.
 
 Parameters
 ----------
 
 - *Grassdir*: The name of the directory to store all your grass files. In this
-   example, I have simply called it grass though have a look at the documentation
-   for suggested naming conventions. 
+   example, I have simply called it grass though have a look at the `documentation <https://grass-gis-to-extract-river-profiles.readthedocs.io/en/latest/>`_ 
+   for suggested naming conventions.
 
 - *DEM*: The projected dem.
 
 - *Shapefile*: A high resolution GSHSS coastline is provided within the directory 
-  'data/external'
+  *./data*
 
 - *Threshold*: We use a 300 pixel threshold, equivalent to a drainage area of 
   0.27 km\ :sup:`2` for the 30 m DEM. This will determine the drainage density, 
-  a higher threshold value will reduce drainage density. 
+  a higher threshold value will reduce stream network density. 
    
 - *No of rivers*: The default is to extract all rivers in the stream network.
   For this example, we will limit the extraction to 50 rivers.
@@ -95,6 +97,8 @@ Extract from river ascii output files:
 
 Visualisation
 -------------
+
+.. image:: https://github.com/pontc/grass-river-extraction-tools/blob/master/Example/figures/riv2858.png
 
 Your rivers are ready for plotting and analysis! River outputs can be visualised by running:
 
