@@ -44,7 +44,7 @@ from here and install :
 .. code:: bash
 
    $ git clone git@github.com:pontc/grass-river-extraction-tools.git
-   $ pip install -e extract-rivers
+   $ pip install -e grass-river-extraction-tools
 
 Now finish up the GDAL installation, run this after pip installing
 the local packages to avoid errors (fingers crossed it works, its a 
