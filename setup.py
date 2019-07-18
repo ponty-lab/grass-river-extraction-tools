@@ -26,7 +26,7 @@ requires = ["numpy", "Cartopy", "richdem",
 setup(
     name='grass_river_extraction_tools',
     packages=find_packages(),
-    version='0.1.1',
+    version='0.1.2',
     description='Automated method to extract river profiles using GRASS GIS',
     author='Carla Pont',
     author_email='c.pont17@imperial.ac.uk',
