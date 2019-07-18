@@ -168,23 +168,23 @@ echo "Extracting stream network using THRESHOLD: $THRESHOLD pixels"
 echo "------------------------------------------------------------"
 echo ""
 
-r.stream.extract elevation=dem accumulation=facc threshold=$THRESHOLD stream_rast=stream_$THRESHOLD stream_vector=stream_$THRESHOLD direction=fdir memory=10000 $command_args
+r.stream.extract elevation=dem accumulation=facc threshold=$THRESHOLD stream_rast=stream stream_vector=stream direction=fdir memory=10000 $command_args
 
 #Linking river segments to their downstream portion using 
 #its unique cat number
 
-v.db.addcolumn stream_$THRESHOLD columns="x1 double,x2 double,y1 double,y2 double,tostream int"
-v.to.db map=stream_$THRESHOLD option=start columns=x1,y1
-v.to.db map=stream_$THRESHOLD option=end columns=x2,y2
+v.db.addcolumn stream columns="x1 double,x2 double,y1 double,y2 double,tostream int"
+v.to.db map=stream option=start columns=x1,y1
+v.to.db map=stream option=end columns=x2,y2
 
 #Indexing sqllite database
 
-db.execute sql="create index stream_${THRESHOLD}_i1 on stream_${THRESHOLD}(x2,y2)"
-db.execute sql="create index stream_${THRESHOLD}_i2 on stream_${THRESHOLD}(x1,y1)"
+db.execute sql="create index stream_i1 on stream(x2,y2)"
+db.execute sql="create index stream_i2 on stream(x1,y1)"
 
 #Finding cat numbers to linking stream segments
 
-db.execute sql="update stream_${THRESHOLD} set tostream=(select s2.cat from stream_${THRESHOLD} s2 where stream_${THRESHOLD}.x2=s2.x1 and stream_${THRESHOLD}.y2=s2.y1 and stream_${THRESHOLD}.cat<>s2.cat)"
+db.execute sql="update stream set tostream=(select s2.cat from stream s2 where stream.x2=s2.x1 and stream.y2=s2.y1 and stream.cat<>s2.cat)"
 
 #Looping through channel heads to extract rivers
 
@@ -197,7 +197,7 @@ echo "Using resolution: $res and cell area: $SQ_M m^2"
 
 #Checking number of rivers doesn't exceed number of start_node records
 
-max_rivnum=`db.select -c sql='select COUNT(*) from stream_$THRESHOLD where stream_type="start"'`
+max_rivnum=`db.select -c sql='select COUNT(*) from stream where stream_type="start"'`
 
 if [ -z "$NO_RIVERS" ]; then
    lim="${max_rivnum}"
@@ -210,11 +210,11 @@ fi
 #X, Y, cat, elev, dist, drainage area (m**2)
 
 i=0
-time for start_node in `db.select -c sql='select cat from stream_$THRESHOLD where stream_type="start" order by random() limit '${lim}''`; do
+time for start_node in `db.select -c sql='select cat from stream where stream_type="start" order by random() limit '${lim}''`; do
    i=$(( ${i} + 1 ))
 	echo "$start_node"
    #Extract linking stream segments
-   v.extract -d input=stream_${THRESHOLD} output=line_${start_node} where="cat in (with recursive cats(cat) as (values(${start_node}) union all select tostream from stream_${THRESHOLD} s, cats where s.cat=cats.cat) select cat from cats where cat is not null)" new=0 $command_args
+   v.extract -d input=stream output=line_${start_node} where="cat in (with recursive cats(cat) as (values(${start_node}) union all select tostream from stream s, cats where s.cat=cats.cat) select cat from cats where cat is not null)" new=0 $command_args
    #Convert to polyline (to remove duplicate vertices)
    v.build.polylines input=line_${start_node} output=cpath_${start_node} $command_args
    #Extract X, Y coordinates and distance along channel
