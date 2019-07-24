@@ -21,7 +21,7 @@ def libgdal_version():
 
 requires = ["numpy", "Cartopy", "richdem",
             "matplotlib", "elevation", "click<7", "scipy",
-            "pygdal=="+libgdal_version()]
+            "pygdal=="+libgdal_version(), "tqdm",]
 
 setup(
     name='grass_river_extraction_tools',
