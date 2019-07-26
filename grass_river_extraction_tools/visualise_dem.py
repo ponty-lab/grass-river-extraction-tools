@@ -84,7 +84,7 @@ def plot_riv_num(directory, river_files, font_size, plot_size):
     ax = plt.axes()
     for river in tqdm(river_files):
         _ , fname = os.path.split(river)
-        riv_num = re.match("^[^0-9]*([0-9]+)$", fname).group(1)
+        riv_num = re.match("^[^0-9]*([0-9]+)*([^0-9])+$", fname).group(1)
         x, y = np.loadtxt(river, usecols=[0,1], unpack=True)
         ax.plot(x/1000, y/1000, '-k', lw=0.5)
         ax.text(x[0]/1000, y[0]/1000, riv_num)
@@ -120,8 +120,10 @@ def river (directory, river, river_dir):
     """Plotting individual river profiles"""
     _ , fname = os.path.split(river)
     print(fname)
-    riv_num = re.match("^[^0-9]*([0-9]+)$", fname).group(1)
-    river_files = glob.glob(os.path.join(river_dir, 'obs_riv*'))
+    riv_num = re.match("^[^0-9]*([0-9]+)*([^0-9]+)$", fname).group(1)
+    print(riv_num)
+    river_files = glob.glob(os.path.join(river_dir, '*riv*'))
+    print(river_files)
     x, y, z, d, a = np.loadtxt(river, usecols=[0, 1, -3, -2, -1], unpack=True)
     plot_river(x/1000, y/1000, d/1000, z, a/1e6, directory, riv_num, river_files)
 
@@ -136,7 +138,7 @@ def river (directory, river, river_dir):
                 nargs=2, default=[60, 60], show_default=True)
 def map (directory, river_dir, font_size, plot_size):
     """Plotting map of river numbers"""
-    rivers = glob.glob(os.path.join(river_dir, 'obs_riv*'))
+    rivers = glob.glob(os.path.join(river_dir, '*riv*'))
     plot_riv_num(directory, rivers, font_size, list(plot_size))
 
 if __name__ == '__main__':
