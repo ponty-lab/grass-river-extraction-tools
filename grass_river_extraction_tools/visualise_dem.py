@@ -104,7 +104,6 @@ def main():
                 default=os.getcwd(), show_default=True)
 def dem (name, dem, directory):
     """Plots extent of DEM overlaid on hillshade"""
-
     click.echo(f"Plotting {dem}")
     gdal_data = gdal.Open(dem)
     grid = raster_to_grid(gdal_data)
@@ -119,11 +118,9 @@ def dem (name, dem, directory):
 def river (directory, river, river_dir):
     """Plotting individual river profiles"""
     _ , fname = os.path.split(river)
-    print(fname)
+    print(f"Plotting river profile for river: <{fname}>")
     riv_num = re.match("^[^0-9]*([0-9]+)*([^0-9]+)$", fname).group(1)
-    print(riv_num)
     river_files = glob.glob(os.path.join(river_dir, '*riv*'))
-    print(river_files)
     x, y, z, d, a = np.loadtxt(river, usecols=[0, 1, -3, -2, -1], unpack=True)
     plot_river(x/1000, y/1000, d/1000, z, a/1e6, directory, riv_num, river_files)
 
@@ -138,6 +135,7 @@ def river (directory, river, river_dir):
                 nargs=2, default=[60, 60], show_default=True)
 def map (directory, river_dir, font_size, plot_size):
     """Plotting map of river numbers"""
+    print(f"Plotting map of river numbers using directory: <{river_dir}>")
     rivers = glob.glob(os.path.join(river_dir, '*riv*'))
     plot_riv_num(directory, rivers, font_size, list(plot_size))
 
