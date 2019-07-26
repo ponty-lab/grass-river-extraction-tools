@@ -70,7 +70,7 @@ def plot_river(x, y, d, z, a, directory, number, river_files):
     ax2.set_title(f"Long Profile for River {number}", fontsize=16)
 
     for river in tqdm(river_files):
-        x1, y1 = np.loadtxt(river, usecols=[0,1], unpack=True)
+        x1, y1 = np.loadtxt(river, usecols=[0,1], delimiter=',', skiprows=1, unpack=True)
         ax3.plot(x1/1000, y1/1000, '-k', lw=0.5)
     ax3.plot(x, y, color='tab:blue', lw=3)
     ax3.set_xlabel('x, km')
@@ -84,8 +84,9 @@ def plot_riv_num(directory, river_files, font_size, plot_size):
     ax = plt.axes()
     for river in tqdm(river_files):
         _ , fname = os.path.split(river)
-        riv_num = re.match("^[^0-9]*([0-9]+)*([^0-9])+$", fname).group(1)
-        x, y = np.loadtxt(river, usecols=[0,1], unpack=True)
+        riv_num = re.match("^[^0-9]*([0-9]+)[^0-9]*$", fname).group(1)
+        print(riv_num)
+        x, y = np.loadtxt(river, usecols=[0,1], delimiter=',', skiprows=1, unpack=True)
         ax.plot(x/1000, y/1000, '-k', lw=0.5)
         ax.text(x[0]/1000, y[0]/1000, riv_num)
     plt.xlabel('x, km')
@@ -119,10 +120,11 @@ def river (directory, river, river_dir):
     """Plotting individual river profiles"""
     _ , fname = os.path.split(river)
     print(f"Plotting river profile for river: <{fname}>")
-    riv_num = re.match("^[^0-9]*([0-9]+)*([^0-9]+)$", fname).group(1)
+    riv_num = re.match("^[^0-9]*([0-9]+)[^0-9]*$", fname).group(1)
     river_files = glob.glob(os.path.join(river_dir, '*riv*'))
-    x, y, z, d, a = np.loadtxt(river, usecols=[0, 1, -3, -2, -1], unpack=True)
-    plot_river(x/1000, y/1000, d/1000, z, a/1e6, directory, riv_num, river_files)
+    x, y, z, d, a = np.loadtxt(river, usecols=[0, 1, -3, -2, -1], 
+                                delimiter=',', skiprows=1, unpack=True)
+    plot_river(x/1000, y/1000, d/1000, z, np.abs(a/1e6), directory, riv_num, river_files)
 
 @main.command('map_rivnum')
 @click.option('--directory', type=click.Path(exists=True),
