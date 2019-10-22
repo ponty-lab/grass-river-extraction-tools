@@ -109,13 +109,13 @@ if [[ -z $GISBASE ]]; then
 	echo "Creating new GRASS PROJECT at ${GRASSDIR}"
    echo "--------------------------------------------------------------"
    echo ""
-	grass76 -e -c ${DEM} ${GRASSDIR}                   # Creating GRASS DIRECTORY
+	grass77 -e -c ${DEM} ${GRASSDIR}                   # Creating GRASS DIRECTORY
    echo ""
    echo "--------------------------------------------------------------"
 	echo "Starting GRASS GIS with ${0} ${args}"
    echo "--------------------------------------------------------------"
    echo ""
-	grass76 --text ${GRASSDIR}/PERMANENT --exec ${0} ${args} # Running script to \                                                           # extract rivers
+	grass77 --text ${GRASSDIR}/PERMANENT --exec ${0} ${args} # Running script to \                                                           # extract rivers
 	exit
 fi
 
