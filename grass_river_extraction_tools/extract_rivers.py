@@ -48,15 +48,60 @@
 
 import grass.script as gscript
 
+import numpy as numpy
+import matplotlib.pyplot as plt
+import sqlite3
+
 ###############
 # MAIN MODULE #
 ###############
 
+class CursorByName():
+    def __init__(self, cursor):
+        self._cursor = cursor
+    
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        row = self._cursor.__next__()
+
+        return { description[0]: row[col] for col, description in enumerate(self._cursor.description) }
+
 def main():
     options, flags = gscript.parser()
-    stream = options['stream']
+
+    #Parsing arguments
+    vectmap = options['stream']
     max_rivers = int(options['max_rivers'])
     print(stream, max_rivers)
+
+    # Connect to vector database for stream network outputted by r.stream.extract
+    stream = VectorTopo(vectmap)
+    stream.open()
+    cur = stream.table.conn.cursor()
+
+
+
+    # Index sqlite database
+    cur.execute("create index stream_i1 on stream(x2,y2)")
+    cur.execute("create index stream_i1 on stream(x2,y2)")
+
+    # Find cat numbers to linking downstream stream segments
+    cur.execute("update stream set tostream=(select s2.cat from stream \
+                s2 where stream.x2=s2.x1 and stream.y2=s2.y1 and \
+                stream.cat<>s2.cat)")
+
+    max_rivers = cur.execute('select COUNT(*) from stream \
+                              where stream_type="start"')
+
+    # Open DEM
+
+    DEM = RasterRow('dem')
+    DEM.open('r')
+
+
+
 
 if __name__ == "__main__":
     main()
