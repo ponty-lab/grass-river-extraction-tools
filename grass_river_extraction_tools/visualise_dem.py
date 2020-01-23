@@ -68,8 +68,8 @@ def plot_river(x, y, d, z, a, directory, number, river_files, delimiter, name, e
     ax2.tick_params(axis='y', labelcolor='tab:red')
     ax2.set_title(f"{name} River (no. {number})", fontsize=16)
     left, right, bottom, top = extent
-    ax3.set_xlim(left, right)
-    ax3.set_ylim(bottom, top)
+    #ax3.set_xlim(left, right)
+    #ax3.set_ylim(bottom, top)
     for river in tqdm(river_files):
         x1, y1 = np.loadtxt(river, usecols=[0,1], delimiter=delimiter, skiprows=1, unpack=True)
         ax3.plot(x1/1000, y1/1000, '-k', lw=0.5)
@@ -129,7 +129,7 @@ def dem (name, dem, directory):
                 type=click.Path(exists=True), required=True)
 @click.option('--river-dir', help="River directory", 
                 type=click.Path(exists=True), required=True)
-@click.option('--delimiter', default=' ', show_default=True)
+@click.option('--delimiter', default=',', show_default=True)
 @click.option('--name')
 @click.option('--extent', help="change map extent", 
                 type=(int, int, int, int), 
@@ -159,7 +159,7 @@ def river (directory, river, river_dir, delimiter, name, extent):
 @click.option('-p', '--plot-size', help="change plot size", type=(int, int),
                 nargs=2, default=[60, 60], show_default=True)
 @click.option('-o', '--outfile', default='river_numbers.png', show_default=True)
-@click.option('--delimiter', default=' ', show_default=True)
+@click.option('--delimiter', default=',', show_default=True)
 @click.option('--extent', help="change map extent", 
                 type=(int, int, int, int), 
                 default=(None, None, None, None))

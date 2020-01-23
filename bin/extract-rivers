@@ -109,13 +109,13 @@ if [[ -z $GISBASE ]]; then
 	echo "Creating new GRASS PROJECT at ${GRASSDIR}"
    echo "--------------------------------------------------------------"
    echo ""
-	grass77 -e -c ${DEM} ${GRASSDIR}                   # Creating GRASS DIRECTORY
+	grass78 -e -c ${DEM} ${GRASSDIR}                   # Creating GRASS DIRECTORY
    echo ""
    echo "--------------------------------------------------------------"
 	echo "Starting GRASS GIS with ${0} ${args}"
    echo "--------------------------------------------------------------"
    echo ""
-	grass77 --text ${GRASSDIR}/PERMANENT --exec ${0} ${args} # Running script to \                                                           # extract rivers
+	grass78 --text ${GRASSDIR}/PERMANENT --exec ${0} ${args} # Running script to \                                                           # extract rivers
 	exit
 fi
 
@@ -146,7 +146,7 @@ g.region raster=dem -p
 
 #Mask DEM using a high resolution coastline data
 r.mask -r
-v.import input=$COAST output=coast extent=region $command_args
+v.import input=$COAST output=coast $command_args
 r.mask vector=coast
 echo ""
 echo "-----------------------"
