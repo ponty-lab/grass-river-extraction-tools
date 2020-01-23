@@ -19,7 +19,7 @@ def libgdal_version():
     return f"{version}.*"
 
 
-requires = ["numpy=1.16.1", "Cartopy", "richdem",
+requires = ["numpy==1.16.1", "Cartopy", "richdem",
             "matplotlib", "elevation", "click<7", "scipy",
             "pygdal=="+libgdal_version(), "tqdm",]
 
